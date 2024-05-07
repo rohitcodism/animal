@@ -1,0 +1,139 @@
+
+import { asyncHandler } from '../utils/asyncHandler.js';
+import Animal from '../models/animal.model.js';
+import { apiResponse } from '../utils/apiResponse.js';
+import { apiError } from '../utils/apiError.js';
+
+const createAnimalEntry = asyncHandler(async(req,res) => {
+    const {
+        name,
+        age,
+        sex
+    } = req.body;
+
+    if(!name || !age || !sex){
+        throw new apiError(400, "Please provide all the details of the animal");
+    }
+
+    const animal = await Animal.create({
+        name,
+        age,
+        sex
+    });
+
+    return res
+    .status(201)
+    .json(new apiResponse(
+        201,
+        {
+            message: "Animal created successfully",
+            data: animal
+        }
+    ));
+})
+
+const getAnimalEntries = asyncHandler(async(req,res) => {
+
+    const { animalId } = req.params;
+
+    console.log('Animal Id :', animalId);
+
+    if(!animalId){
+        throw new apiError(400, "Please provide the animal id");
+    }
+
+    const animal = await Animal.findById(animalId);
+
+    if(!animal){
+        throw new apiError(404, "Animal not found");
+    }
+
+    return res
+    .status(200)
+    .json(new apiResponse(
+        200,
+        {
+            message: "Animal found",
+            data: animal
+        }
+    ));
+});
+
+const updateAnimalEntry = asyncHandler(async(req,res) => {
+    const {
+        name,
+        age,
+        sex
+    } = req.body;
+
+    console.log('Animal Entry : ', name, age, sex);
+
+    const { animalId } = req.params;
+
+    if(!name && !age && !sex){
+        throw new apiError(400, "Please provide the details of the animal");
+    }
+
+    console.log('Animal Id :', animalId);
+
+    if(!animalId){
+        throw new apiError(400, "Please provide the animal id");
+    }
+
+    // Update the animal entry
+    const animal = await Animal.findByIdAndUpdate(animalId, {
+        name,
+        age,
+        sex
+    }, {
+        new: true
+    });
+
+    if(!animal){
+        throw new apiError(404, "Animal not found");
+    }
+
+    return res
+    .status(200)
+    .json(new apiResponse(
+        200,
+        {
+            message: "Animal updated successfully",
+            data: animal
+        }
+    ));
+
+
+});
+
+const deleteAnimalEntry = asyncHandler(async(req,res) => {
+
+    const { animalId } = req.params;
+
+    if(!animalId){
+        throw new apiError(400, "Please provide the animal id");
+    }
+
+    const animal = await Animal.findByIdAndDelete(animalId);
+
+    if(!animal){
+        throw new apiError(404, "Animal not found");
+    }
+
+    return res
+    .status(200)
+    .json(new apiResponse(
+        200,
+        {
+            message: "Animal deleted successfully",
+            data: animal
+        }
+    ));
+});
+
+export {
+    createAnimalEntry,
+    getAnimalEntries,
+    updateAnimalEntry,
+    deleteAnimalEntry
+}
