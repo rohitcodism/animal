@@ -10,6 +10,10 @@ const animalSchema = new mongoose.Schema({
         type: Number,
         required: [true, "An animal should have an age"],
     },
+    type:{
+        type: String,
+        required: [true, "An animal should have a specified type"]
+    },
     sex:{
         type: String,
         enum: ["Male", "Female", "Unknown"],
@@ -17,6 +21,6 @@ const animalSchema = new mongoose.Schema({
     }
 })
 
-const Animal = mongoose.models.animal || mongoose.model("animal", animalSchema);
+const Animal = mongoose.model("animal", animalSchema);
 
 export default Animal;

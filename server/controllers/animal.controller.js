@@ -8,18 +8,25 @@ const createAnimalEntry = asyncHandler(async(req,res) => {
     const {
         name,
         age,
+        type,
         sex
     } = req.body;
 
-    if(!name || !age || !sex){
+    console.log('Animal Entry : ', req.body);
+
+    if(!name || !age || !sex || !type){
         throw new apiError(400, "Please provide all the details of the animal");
     }
 
     const animal = await Animal.create({
         name,
         age,
+        type,
         sex
     });
+
+    const savedAnimal = await animal.save();
+
 
     return res
     .status(201)
@@ -27,7 +34,7 @@ const createAnimalEntry = asyncHandler(async(req,res) => {
         201,
         {
             message: "Animal created successfully",
-            data: animal
+            data: savedAnimal
         }
     ));
 })
@@ -63,14 +70,15 @@ const updateAnimalEntry = asyncHandler(async(req,res) => {
     const {
         name,
         age,
+        type,
         sex
     } = req.body;
 
-    console.log('Animal Entry : ', name, age, sex);
+    console.log('Animal Entry : ', req.body);
 
     const { animalId } = req.params;
 
-    if(!name && !age && !sex){
+    if(!name && !age && !sex && !type){
         throw new apiError(400, "Please provide the details of the animal");
     }
 
@@ -84,6 +92,7 @@ const updateAnimalEntry = asyncHandler(async(req,res) => {
     const animal = await Animal.findByIdAndUpdate(animalId, {
         name,
         age,
+        type,
         sex
     }, {
         new: true
