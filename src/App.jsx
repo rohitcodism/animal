@@ -1,6 +1,7 @@
 import { Toaster } from 'react-hot-toast';
 import './App.css';
-import { Navbar } from './components/Navbar.jsx'
+import { Navbar } from './components/Navbar.jsx';
+import { Hero } from './components/Hero.jsx';
 
 function App() {
 
@@ -13,10 +14,11 @@ function App() {
         justifyContent: 'center',
         height: '100vh',
         width: '100%',
+        gap: '20px',
       }}
     >
       <Navbar />
-      Hello 
+      <Hero />
       <Toaster />
     </div>
   )
