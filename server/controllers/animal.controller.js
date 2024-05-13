@@ -12,7 +12,6 @@ const createAnimalEntry = asyncHandler(async(req,res) => {
         sex
     } = req.body;
 
-    console.log('Animal Entry : ', req.body);
 
     if(!name || !age || !sex || !type){
         throw new apiError(400, "Please provide all the details of the animal");

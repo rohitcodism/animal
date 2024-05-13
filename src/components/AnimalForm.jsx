@@ -28,27 +28,21 @@ export const AnimalFormDialog = ({ open, handleClose }) => {
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
-    console.log("Form errors", errors);
-
     const handleCreateAnimal = async(data) => {
 
-        const response = await axios.post('http://localhost:8000/api/v1/animals/create-animal', data);
-
-        console.log(response);
+        await axios.post('http://localhost:8000/api/v1/animals/create-animal', data);
     };
 
     const onSubmit = (data) => {
         console.log(data);
 
         handleCreateAnimal(data)
-        .then(response => {
-            console.log(response);
+        .then(() => {
             
             toast.success("Animal created successfully", { position: "bottom-right" });
             
         })
-        .catch(error => {
-            console.error(error);
+        .catch(() => {
 
             toast.error("Failed to create animal", { position: "bottom-right" });
         })
