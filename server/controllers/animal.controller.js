@@ -140,9 +140,28 @@ const deleteAnimalEntry = asyncHandler(async(req,res) => {
     ));
 });
 
+const getAllAnimals = asyncHandler(async(req,res) => {
+    try {
+        const animals = await Animal.find();
+        return res
+        .status(200)
+        .json(new apiResponse(
+            200, 
+            {
+                message: "Animals fetched successfully",
+                data: animals
+            }
+        ));
+    } catch (error) {
+        throw new apiError(500, "Internal Server Error");
+    }
+});
+
+
 export {
     createAnimalEntry,
     getAnimalEntries,
     updateAnimalEntry,
-    deleteAnimalEntry
+    deleteAnimalEntry,
+    getAllAnimals
 }
