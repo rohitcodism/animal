@@ -28,8 +28,6 @@ export const AnimalUpdate = ({ open, handleClose, name, type, sex, age, id }) =>
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
-    console.log("Form errors", errors);
-
     const handleCreateAnimal = async(data) => {
 
         console.log("Animal : ", data);
@@ -39,20 +37,15 @@ export const AnimalUpdate = ({ open, handleClose, name, type, sex, age, id }) =>
         console.log(response);
     };
 
-    console.log("Animal : ", { name, type, sex, age, id })
-
     const onSubmit = (data) => {
-        console.log(data);
 
         handleCreateAnimal(data)
-        .then(response => {
-            console.log(response);
+        .then(()=> {
             
             toast.success("Animal updated successfully", { position: "bottom-right" });
             
         })
-        .catch(error => {
-            console.error(error);
+        .catch(()=> {
 
             toast.error("Failed to update animal", { position: "bottom-right" });
         })

@@ -13,8 +13,7 @@ export const DeleteDialog = ({ open, handleClose, id }) => {
     const handleDelete = async() => {
         
         axios.delete(`http://localhost:8000/api/v1/animals/delete-animal/${id}`)
-        .then((res) => {
-            console.log(res.data)
+        .then(() => {
 
             toast.success('Animal Deleted Successfully')
         })
