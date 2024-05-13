@@ -17,7 +17,7 @@ export const Navbar = () => {
 
     return(
         <div
-            className="navbar top-0 fixed w-full bg-gray-800 text-white p-4 flex justify-between items-center z-10"
+            className="navbar top-0 fixed w-full bg-gray-800 text-white p-4 flex justify-between items-center shadow-md mb-8"
         >
             <div className="text-2xl font-bold">Animal Directory</div>
             <div className="flex space-x-4">
