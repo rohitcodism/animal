@@ -1,4 +1,32 @@
-export const AnimalCard = ({ name, type, sex, age }) => {
+import { useState } from 'react';
+import { AnimalUpdate } from './AnimalUpdate';
+import { DeleteDialog } from './DeleteDialog';
+
+export const AnimalCard = ({ name, type, sex, age, id }) => {
+
+    const [ open, setOpen ] = useState(false);
+
+    const [openDelete, setOpenDelete] = useState(false);
+
+    const handleOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+
+        setOpen(false);
+    };
+
+    const handleOpenDelete = () => {
+        setOpenDelete(true);
+    };
+
+    const handleCloseDelete = () => {
+        setOpenDelete(false);
+    };
+
+
+
     return (
         <div className="max-w-sm rounded overflow-hidden shadow-lg bg-white hover:shadow-2xl transition-shadow duration-300">
             <div className="px-6 py-4">
@@ -14,12 +42,26 @@ export const AnimalCard = ({ name, type, sex, age }) => {
                 </p>
             </div>
             <div className="px-6 pt-4 pb-2">
-                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mr-2">
+                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mr-2" onClick={handleOpen}>
                     Edit
                 </button>
-                <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full">
+                <AnimalUpdate 
+                    open={open}
+                    handleClose={handleClose}
+                    name={name}
+                    type={type}
+                    sex={sex}
+                    age={age}
+                    id={id}
+                />
+                <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full" onClick={handleOpenDelete}>
                     Delete
                 </button>
+                <DeleteDialog 
+                    open={openDelete}
+                    handleClose={handleCloseDelete}
+                    id={id}
+                />
             </div>
         </div>
     );

@@ -51,7 +51,10 @@ export const AnimalFormDialog = ({ open, handleClose }) => {
             console.error(error);
 
             toast.error("Failed to create animal", { position: "bottom-right" });
-        });
+        })
+        .finally(() => {
+            window.location.reload();
+        })
 
         handleClose();
         reset();
@@ -94,7 +97,7 @@ export const AnimalFormDialog = ({ open, handleClose }) => {
                         margin="dense"
                         label="Sex"
                         type="text"
-                        options={["Male", "Female", "Other"]}
+                        options={["Male", "Female", "Unknown"]}
                         fullWidth
                         variant="outlined"
                         sx={{ marginBottom: 2, scrollbarColor: 'white' }}
